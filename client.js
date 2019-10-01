@@ -37,7 +37,59 @@ const employees = [
 // This problem is massive! Break the problem down. Use the debugger.
 // What is the fewest lines of code I can write and test to get just a little closer?
 
+$(document).ready(readyNow);
+
+function readyNow();
+
+
+
+function bonusCalculator(employee) {
+  let totalPercentage = 0;
+  if (employee.reviewRating == 5) totalPercentage += .1;
+
+  else if (employee.reviewRating == 4) totalPercentage += .06;
+
+  else if (employee.reviewRating == 3) totalPercentage += .04;
+  else if (employee.reviewRating <= 2) return 0;
+
+  if (employee.employeeNumber.length == 4) totalPercentage += .05;
+
+  if(employee.annualSalary > 65000) totalPercentage -= .01;
+
+  if (totalPercentage > .13) totalPercentage = .13;
+
+  if (totalPercentage < 0) totalPercentage = 0;
+
+  return totalPercentage;
+}
+
+
+function newEmployeeObject(employee) {
+
+    let bonusPercentage = bonusCalculator(employee);
+
+    let newEmployee = {
+      name: employee.name,
+      bonusPercentage: bonusPercentage * 100 + "%",
+      totalCompensation: Number(employee.annualSalary) + (bonusPercentage * Number(employee.annualSalary)),
+      totalBonus:bonusPercentage * employee.annualSalary
+    };
+
+    return newEmployee;
+}
+
+function getNewObjects(array) {
+  let newEmployeeArray = [];
+  for(employee of array) {
+    newEmployeeArray.push(newEmployeeObject(employee));
+  }
+  return newEmployeeArray;
+}
+
+
+
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
-console.log( employees );
+
+console.log(getNewObjects(employees));
