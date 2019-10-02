@@ -39,7 +39,27 @@ const employees = [
 
 $(document).ready(readyNow);
 
-function readyNow();
+function readyNow() {
+  $("#runBtn").click(showEmployees);
+
+}
+
+function showEmployees() {
+  let listEl = $("#employeeList");
+
+  let newEmployeeArray = getNewObjects(employees);
+
+  for (const employee of newEmployeeArray) {
+    listEl.append(listDOMEmployee(employee));
+  }
+
+
+}
+
+function listDOMEmployee(newEmployee) {
+  // this is to append to the <ul> tag
+  return "<li> Name: " + newEmployee.name + ", Bonus Percentage: " + newEmployee.bonusPercentage + ", Total Compensation: " + newEmployee.totalCompensation + ", Total Bonus: " + newEmployee.totalBonus + " </li>" 
+}
 
 
 
